@@ -17,7 +17,7 @@ the effort you put into it.
 
 ### How should you submit your code?
 
-Any way you want - email us a zip, a link to your personal repo, etc. 
+Any way you want - email us a link to your personal repo, a link with the application running on a server, etc. 
 Please include a couple screenshots of the app.
 
 ### What if I don't know React? 
