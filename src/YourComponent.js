@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from 'google-maps-react';
 import * as storeData from "./store_directory.json";
+import { addFavorite } from './slice/favoritesSlice';
+import { useDispatch } from 'react-redux';
 /*
 * Use this component as a launching-pad to build your functionality.
 *
@@ -12,24 +14,7 @@ const mapStyles = {
 };
 
 export class YourComponent extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     markers: []
-  //   }
-  // }
-
-  // handleMapClick = (event) => {
-  //   this.setState(prevState => ({
-  //     markers: [
-  //       ...prevState.markers,
-  //       {
-  //         lat: storeData.Coordinates.lat,
-  //         lng: storeData.Coordinates.lng,
-  //       },
-  //     ],
-  //   }));
-  // }
+  // dispatch = useDispatch();
 
   state = {
     showingInfoWindow: false,
@@ -52,7 +37,9 @@ export class YourComponent extends Component {
       });
     }
   };
+  
   render() {
+    const dispatch = useDispatch();
     return (
       <Map
         google={this.props.google}
@@ -60,14 +47,11 @@ export class YourComponent extends Component {
         style={mapStyles}
         initialCenter={
           {
-            // lat: -1.2884,
-            // lng: 36.8233
             lat: 19.4550, lng: -99.32707
           }
         }
-        // onClick={this.handleMapClick}
       >
-        {storeData.map(store => (
+        {storeData.forEach(store => (
           <Marker
           onClick={this.onMarkerClick}
           name={store.Name} 
@@ -78,7 +62,7 @@ export class YourComponent extends Component {
           }}
         />
         ))}
-        
+
         <InfoWindow
         marker={this.state.activeMarker}
         visible={this.state.showingInfoWindow}
@@ -91,19 +75,13 @@ export class YourComponent extends Component {
             <h4>
               {this.state.selectedPlace.address}
             </h4>
+            <button onClick={dispatch(addFavorite(this.state.selectedPlace.name))}>Add to favorites</button>
           </div>
         </InfoWindow>
       </Map>
     );
   }
 }
-
-// var divStyle = {
-//   border: 'red',
-//   borderWidth: 2,
-//   borderStyle: 'solid',
-//   padding: 20
-// };
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyCVH8e45o3d-5qmykzdhGKd1-3xYua5D2A'
