@@ -21,7 +21,7 @@ class MyMap2 extends Component {
     return (
       <GoogleMap
         defaultZoom={8}
-        defaultCenter={{ lat: -34.397, lng: 150.644 }}
+        defaultCenter={{ lat: 19.4550, lng: -99.32707 }}
       >
         {markers.map((marker, index) => (
           <Marker
