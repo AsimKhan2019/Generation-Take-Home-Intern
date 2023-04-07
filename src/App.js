@@ -1,11 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
+import store from './store';
 import './App.css';
-
+import { useSelector } from 'react-redux';
 import YourComponent from "./YourComponent";
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+        reduxState : {}
+    }
+  }
+
+  DummyView = () => {
+    const favorites = useSelector(store => store.favorites);
+    useEffect(() => {
+        this.setState({
+            reduxState : favorites
+        })
+    }, [])
+    return null
+  }
+  
   render() {
+    
     return (
+      
       <div className="App">
         <h1>Hi, Welcome to the Digital Generation Code Challenge!</h1>
         <h3>Intro:</h3>
@@ -37,8 +57,12 @@ class App extends Component {
           <li><b>Focus on the user, not the technology.</b> A simple implementation that impresses the user is better than a super technical solution that impresses other developers.</li>
           <li>That said, code that is easy to follow is always appreciated :)</li>
         </ul>
-
+        <this.DummyView />
         <YourComponent />
+
+        {/* {this.favorites.map((f) => (
+          <p>{f}</p>
+        ))} */}
       </div>
     );
   }
